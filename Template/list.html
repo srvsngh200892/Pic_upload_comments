@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block body %}
+ <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/list">Pic Upload App</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+             <li class='active'><a href="/list">Welcome {{ user.username }}</a></li>
+            <li><a href="/list/shared/images/">See Shared Pics</a></li>
+            <li><a href="/logout/">Logout</a><li>
+          </ul>
+        </div>
+      </div>
+    </nav>  
+    <div class="jumbotron">
+      <div class="container">
+           <div class="col-md-12 form-group text-center">
+              <form action="{% url "list" %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                          <div class="col-md-2">
+                        <span>{{ form.non_field_errors }}</span>
+                        <span>{{ form.docfile.label_tag }} </span>
+                         </div>
+                         <div class="col-md-6">
+                        <span>
+                                {{ form.docfile.errors }}
+                                {{ form.docfile }}
+                        </span>
+                      </div>
+                      <div class="col-md-2">
+                        <span>
+                                {{ form.select.errors }}
+                                {{ form.select }}
+                        </span>
+                       </div>
+                      <div class="col-md-2">
+                        <span><input type="submit" value="Upload" /></span>
+                      </div>  
+                      </div>  
+                </form>
+        </div>
+      </div>
+    </div>  
+                <!-- List of uploaded documents -->
+    {% if images %}
+            <ul>
+            {% for image in images %}
+                    <li>
+                    {% if image.user.id == user.id %}  
+                    <p>Owner Name:Own</p>
+                    {% else %}
+                     <p>Owner Name:{{image.user.username}}</p>
+                    {% endif %} 
+                    <p>Visibility : {{image.status}}</p>
+                    <a href="home/image/{{ image.id }}">
+                    <img src="{{ image.imagefile.url }}" alt="{{ image.imagefile.name }}"><br><br>
+                     <p>Click on image to comment </p>
+                    </a></li>
+            {% endfor %}
+            </ul>
+    {% else %}
+            <p>Please Upload Your Picture</p>
+    {% endif %}
+
+                <!-- Upload form. Note enctype attribute! -->
+    {% endblock %} 

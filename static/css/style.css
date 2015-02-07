@@ -1,0 +1,32 @@
+/*custom css*/
+
+
+.bgcolor{background-color: #0C5799;}
+
+
+ .snapcolor{background-color: #04B54E;}
+
+.header-color{color:#04B54E;}
+
+.desing-text{color:#fff;
+             margin-top: 30px;}
+
+ .tag-font{font-size: 10px;
+  padding-top: 10px;} 
+
+ .white-text{color:white;
+  margin-top:-10px;} 
+
+  .text-color{color:#000;
+  	margin-left:15px;} 
+
+@media only screen 
+and (min-device-width : 360px) {
+.img-res{height:340px;
+         width:80px;
+         padding-top: 190px;
+         margin-left: 40px;
+     }
+
+}
+

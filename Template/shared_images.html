@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block body %}
+ <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/list">Pic Upload App</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+             <li ><a href="/list">Welcome {{ user.username }}</a></li>
+            <li class='active'><a href="/list/shared/images/">See Shared Pics</a></li>
+            <li ><a href="/logout/">Logout</a><li>
+          </ul>
+        </div>
+      </div>
+    </nav>  
+    <div class="jumbotron">
+      <div class="container">
+         <h2>Shared Picture<h2>
+      </div>
+    </div>  
+   
+                <!-- List of uploaded images -->
+                {% if images %}
+                        <ul>
+                        {% for image in images %}
+                                <li> 
+                              {% if image.user.id == user.id %}  
+                                <p>Owner Name:Own</p>
+                                {% else %}
+                                 <p>Owner Name:{{image.user.username}}</p>
+                                {% endif %} 
+                                <p>Visibility : {{image.status}}</p>
+                                  <a href="/list/home/image/{{ image.id }}">
+                                <img src="{{ image.imagefile.url }}" alt="{{ image.imagefile.name }}">
+                                <p>Click on image to comment </p>
+                                </a></li>
+                        {% endfor %}
+                        </ul>
+                {% else %}
+                        <p>No Shared Picture.</p>
+                {% endif %}
+
+                <!-- Upload form. Note enctype attribute! -->
+    {% endblock %} 

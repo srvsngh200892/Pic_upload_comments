@@ -115,7 +115,7 @@ def list(request):
             newimage = Image(imagefile = request.FILES['docfile'],user=request.user,status=request.POST['select'])
             newimage.save()
 
-            # Redirect to the document list after POST
+            # Redirect to the images list after POST
             return HttpResponseRedirect('/list')
     else:
         form = DocumentForm() # A empty, unbound form
@@ -123,7 +123,7 @@ def list(request):
     # Load documents for the list page
     images = Image.objects.filter(user=request.user)
 
-    # Render list page with the documents and the form
+    # Render list page with the images and the form
     return render_to_response(
         'list.html',
         {'images': images, 'form': form},
@@ -135,7 +135,7 @@ def list_community_image(request):
     # Handle file upload
     images = Image.objects.filter(Q(status='Community')| Q(status='Public'))
 
-    # Render list page with the documents and the form
+    # Render list page with the images and the form
     return render_to_response(
         'shared_images.html',
         {'images': images},
@@ -146,7 +146,7 @@ def landing_page(request):
     # Handle file upload
     images = Image.objects.filter(status='Public')
 
-    # Render list page with the documents and the form
+    # Render list page with the images and the form
     return render_to_response(
         'landing_page.html',
         {'images': images},

@@ -5,4 +5,4 @@ class DocumentForm(forms.Form):
 	docfile = forms.FileField(label='Select a file',)
  	select = forms.CharField(widget=forms.Select(choices=STATUS_CHOICES))
 
-print DocumentForm().as_p() 	
+

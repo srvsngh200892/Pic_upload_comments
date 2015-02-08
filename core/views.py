@@ -71,15 +71,12 @@ def home(request,pid):
     form = CommentForm(request.POST or None)
     user = User.objects.filter(id=request.user.id)
     image = Image.objects.filter(id=pid)[0]
-    print image.status,request.user.id,image.user.id
     if image.status=='Only Me' and image.user!=request.user:
         return HttpResponse('Unauthorized', status=401) 
     else:
         if request.method == "POST":
             if form.is_valid():
-                print type(form)
                 temp = form.save(commit=False)
-                print type(temp)
                 parent = form['parent'].value()
                 
                 if parent == '':
